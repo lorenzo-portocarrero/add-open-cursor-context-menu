@@ -1,6 +1,6 @@
-# Add Open with Cursor Context Menu
+# Windows Context Menu Integration for Cursor Editor
 
-This repository provides registry files to add or remove "Open with Cursor" to your Windows context menu (right-click menu). This allows you to quickly open files and folders with the [Cursor Editor](https://cursor.sh/).
+A simple registry script that adds an "Open with Cursor" option to your Windows context menu (right-click menu). Once installed, you can right-click any file, folder, or explorer background to quickly open it in Cursor Editor. The script handles registry modifications safely and includes an uninstall option if you want to remove the context menu entries later.
 
 ## Features
 
