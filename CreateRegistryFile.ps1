@@ -1,3 +1,7 @@
+$cursorPath = "$env:LOCALAPPDATA\Programs\cursor\Cursor.exe"
+$cursorPathEscaped = $cursorPath -replace '\\', '\\'
+
+$registryContent = @"
 Windows Registry Editor Version 5.00
 
 ;=================================
@@ -5,27 +9,31 @@ Windows Registry Editor Version 5.00
 ;=================================
 [HKEY_CLASSES_ROOT\Directory\Background\shell\OpenWithCursor]
 @="Open with Cursor"
-"Icon"="C:\\Users\\Lorenzo\\AppData\\Local\\Programs\\cursor\\Cursor.exe"
+"Icon"="$cursorPathEscaped"
 
 [HKEY_CLASSES_ROOT\Directory\Background\shell\OpenWithCursor\command]
-@="\"C:\\Users\\Lorenzo\\AppData\\Local\\Programs\\cursor\\Cursor.exe\" \"%V\""
+@="\`"$cursorPathEscaped\`" \`"%V\`""
 
 ;=================================
 ; 2) RIGHT-CLICK ON ANY FILE
 ;=================================
 [HKEY_CLASSES_ROOT\*\shell\OpenWithCursor]
 @="Open with Cursor"
-"Icon"="C:\\Users\\Lorenzo\\AppData\\Local\\Programs\\cursor\\Cursor.exe"
+"Icon"="$cursorPathEscaped"
 
-[HKEY_CLASSES_ROOT\*\shell\OpenWithCursor\\command]
-@="\"C:\\Users\\Lorenzo\\AppData\\Local\\Programs\\cursor\\Cursor.exe\" \"%1\""
+[HKEY_CLASSES_ROOT\*\shell\OpenWithCursor\command]
+@="\`"$cursorPathEscaped\`" \`"%1\`""
 
 ;=================================
 ; 3) RIGHT-CLICK ON ANY FOLDER
 ;=================================
 [HKEY_CLASSES_ROOT\Directory\shell\OpenWithCursor]
 @="Open with Cursor"
-"Icon"="C:\\Users\\Lorenzo\\AppData\\Local\\Programs\\cursor\\Cursor.exe"
+"Icon"="$cursorPathEscaped"
 
-[HKEY_CLASSES_ROOT\Directory\shell\OpenWithCursor\\command]
-@="\"C:\\Users\\Lorenzo\\AppData\\Local\\Programs\\cursor\\Cursor.exe\" \"%1\""
+[HKEY_CLASSES_ROOT\Directory\shell\OpenWithCursor\command]
+@="\`"$cursorPathEscaped\`" \`"%1\`""
+"@
+
+$registryContent | Out-File -FilePath "OpenWithCursorAll.reg" -Encoding Unicode
+Write-Host "Archivo OpenWithCursorAll.reg creado exitosamente con la ruta: $cursorPath" 
